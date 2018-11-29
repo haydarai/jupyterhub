@@ -94,7 +94,7 @@ class AuditLog():
         self.auto_refresh()
 
     def read_ports(self):
-        subprocess.call("./get_all_ports.sh", shell=True)
+        subprocess.call("./get_all_ports.sh", shell=True, stderr=subprocess.DEVNULL)
         try:
             with open('./ports.json') as json_data:
                 data = json.load(json_data)
@@ -109,7 +109,7 @@ class AuditLog():
                             process.start()
                             self.processes_by_port[p] = process
         except:
-            print("No port opened yet")
+            pass
 
     def auto_refresh(self):
         Timer(0.5, self.auto_refresh).start()
